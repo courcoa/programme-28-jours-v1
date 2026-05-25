@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programme calisthénie 28 jours</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.42.0/dist/tabler-icons.min.css">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #f7f6f1;
+      color: #141413;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f4ed;
+      --bg-page: #f7f6f1;
+      --text-primary: #141413;
+      --text-secondary: #3d3d3a;
+      --text-tertiary: #73726c;
+      --border: rgba(31,30,29,0.15);
+      --border-md: rgba(31,30,29,0.25);
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 10px;
+      --radius-xl: 12px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --green: #1D9E75;
+      --blue: #378ADD;
+      --amber: #BA7517;
+      --purple: #7F77DD;
+      --coral: #D85A30;
+      --gray: #888780;
+
+      /* tag colors */
+      --tag-push-bg: #E6F1FB; --tag-push-c: #0C447C;
+      --tag-legs-bg: #FAEEDA; --tag-legs-c: #633806;
+      --tag-core-bg: #EEEDFE; --tag-core-c: #3C3489;
+      --tag-pull-bg: #E1F5EE; --tag-pull-c: #085041;
+      --tag-full-bg: #FAECE7; --tag-full-c: #712B13;
+      --tag-rest-bg: #F1EFE8; --tag-rest-c: #444441;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-primary: #302e2c;
+        --bg-secondary: #262422;
+        --bg-page: #1a1917;
+        --text-primary: #faf9f5;
+        --text-secondary: #c2c0b6;
+        --text-tertiary: #9c9a92;
+        --border: rgba(222,220,209,0.12);
+        --border-md: rgba(222,220,209,0.22);
+        --tag-push-bg: #0c2b4a; --tag-push-c: #85b7eb;
+        --tag-legs-bg: #3a2200; --tag-legs-c: #f5c97a;
+        --tag-core-bg: #1e1a4a; --tag-core-c: #afa9ec;
+        --tag-pull-bg: #082e22; --tag-pull-c: #5dcaa5;
+        --tag-full-bg: #3d1800; --tag-full-c: #f0997b;
+        --tag-rest-bg: #2a2926; --tag-rest-c: #b4b2a9;
+      }
+    }
+
+    /* ===== LAYOUT ===== */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .top-bar h1 {
+      font-size: clamp(15px, 3vw, 18px);
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .top-bar h1 span {
+      display: block;
+      font-size: clamp(11px, 2.5vw, 13px);
+      font-weight: 400;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+    .chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .chip {
+      font-size: 11px;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      border: 0.5px solid var(--border);
+      border-radius: 99px;
+      padding: 4px 10px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-bar {
+      height: 4px;
+      background: var(--bg-secondary);
+      border-radius: 99px;
+      margin-bottom: 1.25rem;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--green);
+      border-radius: 99px;
+      transition: width 0.3s ease;
+    }
+
+    /* ===== LEGEND ===== */
+    .legend {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .leg {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ===== CALENDAR GRID ===== */
+    .week-labels {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .week-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .grid-cal {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 4px;
+      margin-bottom: 1.5rem;
+    }
+    .day-cell {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 6px 5px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      min-height: 72px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      background: var(--bg-primary);
+    }
+    .day-cell:hover { border-color: var(--border-md); background: var(--bg-secondary); }
+    .day-cell.done { opacity: 0.5; }
+    .day-cell.selected { border: 1.5px solid var(--blue); background: var(--bg-primary); }
+    .day-num {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .day-tag {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 5px;
+      border-radius: 99px;
+      width: fit-content;
+      line-height: 1.4;
+    }
+    .day-title {
+      font-size: 9px;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    /* tag classes */
+    .tag-push { background: var(--tag-push-bg); color: var(--tag-push-c); }
+    .tag-legs { background: var(--tag-legs-bg); color: var(--tag-legs-c); }
+    .tag-core { background: var(--tag-core-bg); color: var(--tag-core-c); }
+    .tag-pull { background: var(--tag-pull-bg); color: var(--tag-pull-c); }
+    .tag-full { background: var(--tag-full-bg); color: var(--tag-full-c); }
+    .tag-rest { background: var(--tag-rest-bg); color: var(--tag-rest-c); }
+
+    /* ===== DETAIL PANEL ===== */
+    .no-sel {
+      font-size: 14px;
+      color: var(--text-tertiary);
+      padding: 2rem 0;
+      text-align: center;
+    }
+    .detail-card {
+      background: var(--bg-primary);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .detail-header {
+      padding: 12px 16px;
+      border-bottom: 0.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .detail-title {
+      font-size: clamp(13px, 3vw, 15px);
+      font-weight: 600;
+      color: var(--text-primary);
+      flex: 1;
+      min-width: 120px;
+    }
+    .detail-meta {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ===== TABLE HEADER ===== */
+    .th-row {
+      display: grid;
+      grid-template-columns: 1fr 90px 70px;
+      gap: 8px;
+      padding: 7px 16px;
+      background: var(--bg-secondary);
+    }
+    .th-row span {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* ===== EXERCISE BLOCK ===== */
+    .ex-block { border-bottom: 0.5px solid var(--border); }
+    .ex-block:last-child { border-bottom: none; }
+    .ex-header {
+      display: grid;
+      grid-template-columns: 1fr 90px 70px;
+      gap: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      align-items: center;
+      transition: background 0.1s;
+    }
+    .ex-header:hover { background: var(--bg-secondary); }
+    .ex-header:active { background: var(--border); }
+    .ex-name {
+      font-size: 13px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1.3;
+    }
+    .ex-chevron {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .ex-chevron.open { transform: rotate(180deg); }
+    .ex-sets {
+      font-size: 12px;
+      color: var(--text-primary);
+      text-align: center;
+      font-weight: 500;
+    }
+    .ex-rest { font-size: 11px; color: var(--text-secondary); text-align: center; }
+
+    /* ===== EXERCISE DETAIL ===== */
+    .ex-detail { display: none; padding: 0 16px 14px; }
+    .ex-detail.open { display: block; }
+    .ex-desc-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .ex-desc p {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0 0 8px;
+    }
+    .ex-desc ul {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin: 0;
+      padding-left: 16px;
+      line-height: 1.7;
+    }
+    .ex-link {
+      font-size: 12px;
+      color: #185FA5;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+      text-decoration: none;
+      padding: 4px 0;
+    }
+    .ex-link:hover { text-decoration: underline; }
+
+    /* ===== DONE BUTTON ===== */
+    .done-btn { display: flex; align-items: center; gap: 8px; margin-top: 0.75rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: var(--radius-md);
+      border: 0.5px solid var(--border-md);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover { background: var(--bg-secondary); }
+    .btn:active { transform: scale(0.97); background: var(--border); }
+    .btn.done-active {
+      background: #edf7f3;
+      border-color: #1D9E75;
+      color: #1D9E75;
+    }
+    @media (prefers-color-scheme: dark) {
+      .btn.done-active { background: #0d2e22; border-color: #1D9E75; }
+    }
+    .check-icon { color: var(--green); }
+
+    /* ===== RESPONSIVE: TABLETTE (≤768px) ===== */
+    @media (max-width: 768px) {
+      .container { padding: 0.75rem; }
+      .week-labels { gap: 3px; }
+      .week-label { font-size: 9px; }
+      .grid-cal { gap: 3px; }
+      .day-cell { min-height: 60px; padding: 5px 4px; gap: 2px; }
+      .day-num { font-size: 9px; }
+      .day-tag { font-size: 8px; padding: 1px 4px; }
+      .day-title { font-size: 8px; }
+    }
+
+    /* ===== RESPONSIVE: MOBILE (≤480px) ===== */
+    @media (max-width: 480px) {
+      .container { padding: 0.6rem; }
+
+      /* Calendrier : 4 colonnes → semaine sur 2 lignes, plus lisible */
+      .week-labels {
+        grid-template-columns: repeat(4, minmax(0,1fr));
+      }
+      /* On cache Dim dans les labels sur mobile (7→4 colonnes) */
+      .week-labels .wl-5,
+      .week-labels .wl-6,
+      .week-labels .wl-7 { display: none; }
+
+      /* Garder 7 colonnes mais très compactes */
+      .grid-cal { grid-template-columns: repeat(7, minmax(0,1fr)); gap: 2px; }
+      .week-labels { grid-template-columns: repeat(7, minmax(0,1fr)); gap: 2px; }
+      .week-label { font-size: 8px; }
+      .day-cell { min-height: 52px; padding: 4px 3px; border-radius: 6px; }
+      .day-num { font-size: 8px; }
+      .day-tag { font-size: 7px; padding: 1px 3px; border-radius: 4px; }
+      .day-title { display: none; } /* masqué sur très petit écran, le tag suffit */
+
+      /* Chips: masquer le texte long */
+      .chip-hint { display: none; }
+
+      /* Detail */
+      .th-row { grid-template-columns: 1fr 72px 56px; padding: 6px 12px; }
+      .th-row span { font-size: 9px; }
+      .ex-header { grid-template-columns: 1fr 72px 56px; padding: 10px 12px; }
+      .ex-name { font-size: 12px; }
+      .ex-sets { font-size: 11px; }
+      .ex-rest { font-size: 10px; }
+      .ex-detail { padding: 0 12px 12px; }
+      .detail-header { padding: 10px 12px; }
+      .detail-title { font-size: 13px; }
+
+      /* Bouton done: pleine largeur */
+      .done-btn { flex-direction: column; align-items: stretch; }
+      .btn { justify-content: center; padding: 11px; }
+    }
+
+    /* ===== RESPONSIVE: TRÈS PETIT (≤360px) ===== */
+    @media (max-width: 360px) {
+      .day-cell { min-height: 44px; }
+      .day-tag { font-size: 6px; padding: 1px 2px; }
+      .day-num { font-size: 7px; }
+    }
+
+    /* ===== UTILITAIRES ===== */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* Scrollbar discrète */
+    * { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-md); border-radius: 2px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="sr-only">Programme calisthénie 28 jours sans matériel</h1>
+
+    <div class="top-bar">
+      <div>
+        <h1>Programme 28 jours
+          <span>Calisthenics pur — sans matériel</span>
+        </h1>
+      </div>
+      <div class="chips">
+        <span class="chip"><i class="ti ti-clock"></i> ~15 min/j</span>
+        <span class="chip"><i class="ti ti-home"></i> Maison</span>
+        <span class="chip chip-hint"><i class="ti ti-hand-click"></i> Clique un jour</span>
+      </div>
+    </div>
+
+    <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+
+    <div class="legend">
+      <div class="leg"><div class="dot" style="background:#378ADD"></div>Push</div>
+      <div class="leg"><div class="dot" style="background:#1D9E75"></div>Pull / Dos</div>
+      <div class="leg"><div class="dot" style="background:#BA7517"></div>Jambes</div>
+      <div class="leg"><div class="dot" style="background:#7F77DD"></div>Core</div>
+      <div class="leg"><div class="dot" style="background:#D85A30"></div>Full body</div>
+      <div class="leg"><div class="dot" style="background:#888780"></div>Repos</div>
+    </div>
+
+    <div class="week-labels" id="week-labels">
+      <div class="week-label">Lun</div>
+      <div class="week-label">Mar</div>
+      <div class="week-label">Mer</div>
+      <div class="week-label">Jeu</div>
+      <div class="week-label">Ven</div>
+      <div class="week-label">Sam</div>
+      <div class="week-label">Dim</div>
+    </div>
+    <div class="grid-cal" id="cal"></div>
+
+    <div id="detail-zone">
+      <p class="no-sel"><i class="ti ti-hand-click"></i> Sélectionne un jour pour voir la séance</p>
+    </div>
+  </div>
+
+<script>
+// ===== DONNÉES EXERCICES =====
+const EX = {
+  "Pompes classiques":{sets:"3 × 8",rest:"45s",tip:"Coudes à 45°, descente lente",desc:"Le fondamental de la calisthenics. En position planche, mains à largeur d'épaules, descends la poitrine vers le sol puis repousse.",cues:["Coudes à 45° du corps, pas à 90°","Corps rigide de la tête aux pieds","Descente en 3 secondes, montée en 1"],link:"https://www.youtube.com/results?search_query=pompes+classiques+technique"},
+  "Pompes larges":{sets:"2 × 8",rest:"45s",tip:"Étire les pectoraux",desc:"Comme les pompes classiques mais mains plus écartées (1,5× largeur épaules). Cible davantage les pectoraux externes.",cues:["Mains à 1,5× la largeur des épaules","Descends les coudes vers l'extérieur","Sens l'étirement dans les pectoraux en bas"],link:"https://www.youtube.com/results?search_query=pompes+larges+technique"},
+  "Dips sur chaise (mains)":{sets:"2 × 8",rest:"45s",tip:"Amplitude réduite, pas sous l'épaule",desc:"Dos à une chaise, mains sur le bord, jambes tendues. Fléchis les coudes pour descendre puis repousse.",cues:["Ne descends pas les épaules sous les coudes","Coudes pointent vers l'arrière","Garde le dos proche de la chaise"],link:"https://www.youtube.com/results?search_query=dips+chaise+technique"},
+  "Gainage avant":{sets:"3 × 20s",rest:"30s",tip:"Corps aligné, respire",desc:"Appui sur les avant-bras et les orteils. Le corps forme une ligne droite de la tête aux talons.",cues:["Serre les abdos et les fessiers","Ne laisse pas les hanches monter ou descendre","Respire normalement, ne bloque pas"],link:"https://www.youtube.com/results?search_query=planche+gainage+avant+technique"},
+  "Squats lents":{sets:"4 × 12",rest:"45s",tip:"Descente 3 sec, genou dans l'axe du pied",desc:"Pieds à largeur d'épaules, orteils légèrement tournés vers l'extérieur. Descends les fesses vers le sol, dos droit.",cues:["Genou suit la direction des orteils","Descente lente en 3 sec","Poids sur les talons, ne soulève pas les pieds"],link:"https://www.youtube.com/results?search_query=squat+technique+debutant"},
+  "Fentes avant alternées":{sets:"3 × 10/j",rest:"45s",tip:"Genou avant à 90°",desc:"Debout, fais un grand pas en avant. Le genou avant forme 90°, le genou arrière descend vers le sol sans le toucher.",cues:["Grand pas pour que le genou ne dépasse pas le pied","Torse droit, regard devant","Pousse sur le talon avant pour revenir"],link:"https://www.youtube.com/results?search_query=fentes+avant+technique"},
+  "Glute bridge":{sets:"3 × 15",rest:"30s",tip:"Serrer les fessiers en haut, tenir 1s",desc:"Allongé sur le dos, genoux fléchis, pieds à plat. Pousse les hanches vers le plafond en contractant les fessiers.",cues:["Serre les fessiers au maximum en haut","Tiens 1 seconde en haut","Bassin monte et descend dans l'axe vertical"],link:"https://www.youtube.com/results?search_query=glute+bridge+technique"},
+  "Calf raises":{sets:"3 × 20",rest:"30s",tip:"Lent et contrôlé",desc:"Debout, monte sur la pointe des pieds le plus haut possible, puis redescends lentement.",cues:["Monte le plus haut possible","Descends lentement en 3 secondes","Garde l'équilibre, ne te balance pas"],link:"https://www.youtube.com/results?search_query=calf+raises+technique"},
+  "Planche avant":{sets:"3 × 30s",rest:"30s",tip:"Gainage total, ne rentre pas le dos",desc:"Position de gainage sur avant-bras. Corps en ligne droite. Exercice roi du core militaire.",cues:["Coudes sous les épaules","Serre abdos, fessiers et quadriceps","Ne laisse pas le dos se creuser"],link:"https://www.youtube.com/results?search_query=planche+avant+gainage+technique"},
+  "Crunchs vélo":{sets:"3 × 16",rest:"30s",tip:"Rotation lente, ne tire pas le cou",desc:"Allongé sur le dos, mains derrière la tête. Amène le coude gauche vers le genou droit en alternant.",cues:["Rotation du torse, pas juste du coude","Jambe tendue reste à 30cm du sol","Mouvement lent et contrôlé"],link:"https://www.youtube.com/results?search_query=crunch+velo+technique"},
+  "Mountain climbers lents":{sets:"3 × 16",rest:"30s",tip:"Genou vers poitrine, dos plat",desc:"En position de pompe, ramène alternativement chaque genou vers la poitrine de façon contrôlée.",cues:["Dos reste plat, hanches ne montent pas","Genou vient toucher la poitrine","Bras tendus, épaules au-dessus des mains"],link:"https://www.youtube.com/results?search_query=mountain+climbers+technique"},
+  "Superman (extension dorsale)":{sets:"3 × 12",rest:"30s",tip:"Essentiel pour le bas du dos",desc:"Allongé face au sol, bras tendus devant. Soulève simultanément bras, poitrine et jambes du sol.",cues:["Regard vers le bas, nuque dans l'axe","Contracte les fessiers en montant","Tiens 2 secondes en haut"],link:"https://www.youtube.com/results?search_query=superman+exercice+dos+technique"},
+  "Superman hold":{sets:"3 × 10 (hold 3s)",rest:"30s",tip:"Renforce les érecteurs du rachis",desc:"Comme le Superman, mais tu tiens la position haute 3 secondes à chaque répétition.",cues:["Tiens fermement 3 secondes en haut","Respire pendant le hold","Relâche lentement"],link:"https://www.youtube.com/results?search_query=superman+hold+exercice"},
+  "Élévations de bras en W couché":{sets:"3 × 12",rest:"30s",tip:"Réhab épaules, rear delts",desc:"Allongé face au sol, bras en position W (coudes fléchis, paumes vers le bas). Soulève les coudes en serrant les omoplates.",cues:["Serre les omoplates ensemble","Coudes montent, paumes vers le bas","Amplitude petite mais contraction forte"],link:"https://www.youtube.com/results?search_query=exercice+W+epaule+prone"},
+  "Planche latérale":{sets:"2 × 20s/côté",rest:"30s",tip:"Épaule alignée au-dessus du coude",desc:"Appui sur un avant-bras et le bord du pied. Le corps forme une ligne droite de côté.",cues:["Épaule exactement au-dessus du coude","Hanches ne tombent pas vers le sol","Regarde droit devant"],link:"https://www.youtube.com/results?search_query=planche+laterale+technique"},
+  "Cat-cow + rotations thoraciques":{sets:"2 × 10",rest:"20s",tip:"Mobilité indispensable après 40 ans",desc:"À quatre pattes : cat = arrondis le dos. Cow = creuse le dos. Puis rotation du buste côté par côté.",cues:["Mouvement lent et amplifié","Respire : expire en cat, inspire en cow","Rotation : une main derrière la tête, ouvre le coude vers le plafond"],link:"https://www.youtube.com/results?search_query=cat+cow+rotation+thoracique"},
+  "Burpees modifiés (sans saut)":{sets:"3 × 8",rest:"45s",tip:"Cardio-force, épaules douces",desc:"Depuis debout : mains au sol, recule les pieds en planche, fais une pompe, reviens, redresse-toi. Sans saut final.",cues:["Remplace le saut par une montée sur la pointe des pieds","Planche tenue 1 seconde avant la pompe","Rythme modéré, technique avant vitesse"],link:"https://www.youtube.com/results?search_query=burpee+modifie+sans+saut"},
+  "Squats jump (ou squats)":{sets:"3 × 10",rest:"45s",tip:"Choisir l'option selon l'énergie",desc:"Squat classique avec saut explosif en haut. Si les genoux ou l'énergie ne suivent pas, reste au squat normal.",cues:["Atterris souple, genoux légèrement fléchis","Descends directement dans le squat suivant","Option sans saut : juste monter sur les orteils"],link:"https://www.youtube.com/results?search_query=squat+jump+technique"},
+  "Pompes + rotation":{sets:"3 × 6/côté",rest:"45s",tip:"Coordination et gainage",desc:"Fais une pompe, puis en haut tourne le corps en ouvrant un bras vers le plafond (comme un T). Alterne les côtés.",cues:["Planche stable avant de tourner","Bras tendu vers le plafond, regard vers la main","Corps forme un T parfait à l'ouverture"],link:"https://www.youtube.com/results?search_query=pompes+rotation+t+push+up"},
+  "Gainage + reach":{sets:"2 × 10/côté",rest:"30s",tip:"Tend le bras opposé à la jambe",desc:"En position de gainage sur avant-bras, tends simultanément le bras droit et la jambe gauche, puis alterne.",cues:["Hanches ne bougent pas pendant le reach","Corps reste parallèle au sol","Tiens 2 secondes en extension"],link:"https://www.youtube.com/results?search_query=gainage+reach+planche"},
+  "Marche 10–15 min":{sets:"1 × continu",rest:"—",tip:"Rythme confort, respiration nasale",desc:"Marche à un rythme où tu peux parler normalement. Idéalement en extérieur.",cues:["Fréquence cardiaque basse, confort total","Respiration nasale si possible","Profites-en pour t'étirer en marchant"],link:""},
+  "Étirements épaules & poitrail":{sets:"3 × 30s",rest:"—",tip:"Ouverture thoracique au mur",desc:"Place l'avant-bras contre un mur à 90°, tourne doucement le corps pour ouvrir le pectoral.",cues:["Angle du coude à 90°","Tourne lentement jusqu'à sentir l'étirement","Ne force pas, respire dans l'étirement"],link:"https://www.youtube.com/results?search_query=etirement+pectoral+mur+epaule"},
+  "Étirements ischio-jambiers":{sets:"3 × 30s",rest:"—",tip:"Assis au sol, jambes tendues",desc:"Assis au sol, jambes tendues devant toi. Penche-toi en avant en cherchant à toucher les orteils, dos droit.",cues:["Dos droit, plie depuis les hanches pas le dos","Sens l'étirement à l'arrière des cuisses","Ne force pas à bloc"],link:"https://www.youtube.com/results?search_query=etirement+ischio+jambiers+assis"},
+  "Respiration diaphragmatique":{sets:"5 min",rest:"—",tip:"Récupération du système nerveux",desc:"Allongé, place une main sur le ventre. Inspire par le nez en gonflant le ventre, expire lentement.",cues:["Le ventre monte à l'inspire, pas la poitrine","Expire 2× plus longtemps que l'inspire","4 sec inspire, 8 sec expire"],link:"https://www.youtube.com/results?search_query=respiration+diaphragmatique+technique"},
+  "Pompes fermées (triceps)":{sets:"3 × 8",rest:"45s",tip:"Mains sous la poitrine",desc:"Pompes avec les mains rapprochées. Cible les triceps et la zone centrale du pectoral.",cues:["Mains sous le sternum","Coudes rasent les flancs en descendant","Corps rigide comme une planche"],link:"https://www.youtube.com/results?search_query=pompes+serrees+triceps+technique"},
+  "Pompes inclinées (pieds sur chaise)":{sets:"2 × 6",rest:"60s",tip:"Zone haute des pectoraux",desc:"En position de pompe, place les pieds sur une chaise. Cible la partie haute du pectoral et les épaules.",cues:["Corps toujours en ligne droite","Ne laisse pas les hanches s'affaisser","Descends jusqu'à ce que le front frôle le sol"],link:"https://www.youtube.com/results?search_query=pompes+inclinées+pieds+surélevés"},
+  "Fentes bulgares (pied arrière sur chaise)":{sets:"3 × 8/j",rest:"60s",tip:"Quadriceps & fessiers intenses",desc:"Pied arrière posé sur une chaise, pied avant à ~1m devant. Descends le genou arrière vers le sol.",cues:["Pied avant assez loin pour que le genou ne dépasse pas l'orteil","Torse droit ou légèrement incliné avant","Descends lentement, monte fort"],link:"https://www.youtube.com/results?search_query=fente+bulgare+technique"},
+  "Single leg glute bridge":{sets:"3 × 10/j",rest:"45s",tip:"Correction des asymétries",desc:"Comme le glute bridge, mais une jambe tendue dans les airs. Pousse avec le seul talon au sol.",cues:["Jambe tendue reste à 45° du sol","Serre fort le fessier de la jambe d'appui","Hanche ne bascule pas de côté"],link:"https://www.youtube.com/results?search_query=single+leg+glute+bridge+technique"},
+  "Step-ups sur chaise basse":{sets:"3 × 10/j",rest:"45s",tip:"Genou stable, ne bascule pas",desc:"Monte sur une chaise basse ou une marche en poussant sur le talon, puis redescends.",cues:["Pousse sur le talon, pas la pointe","Genou de la jambe qui monte ne s'effondre pas vers l'intérieur","Contrôle la descente"],link:"https://www.youtube.com/results?search_query=step+up+chaise+exercice"},
+  "Squats sumo lents":{sets:"3 × 12",rest:"30s",tip:"Adducteurs et fessiers",desc:"Pieds très écartés, orteils pointés à 45°. Descends lentement, genoux suivent la direction des pieds.",cues:["Pieds 2× largeur d'épaules minimum","Dos droit, torse fier","Descente en 4 secondes"],link:"https://www.youtube.com/results?search_query=squat+sumo+technique"},
+  "Dead bug":{sets:"3 × 8/côté",rest:"30s",tip:"Bas du dos collé au sol",desc:"Allongé sur le dos, bras tendus vers le plafond, jambes en table. Tends bras droit + jambe gauche vers le sol simultanément.",cues:["Le bas du dos reste COLLÉ au sol en permanence","Expire en allongeant les membres","Reviens lentement"],link:"https://www.youtube.com/results?search_query=dead+bug+exercice+core+technique"},
+  "Planche + tap épaule":{sets:"3 × 10",rest:"45s",tip:"Bassin stable, ne tourne pas",desc:"En position de planche sur les mains, touche alternativement l'épaule opposée. Le bassin ne doit pas bouger.",cues:["Pieds un peu plus écartés pour la stabilité","Bassin ne tourne pas quand la main lâche","Lent et contrôlé"],link:"https://www.youtube.com/results?search_query=planche+tap+epaule+technique"},
+  "Crunchs obliques":{sets:"3 × 12/côté",rest:"30s",tip:"Rotation contrôlée",desc:"Allongé, genoux fléchis, une main derrière la tête. Monte en diagonale vers le genou opposé.",cues:["C'est le coude qui va vers le genou, pas l'inverse","Dos du bas reste au sol","Expiration à la montée"],link:"https://www.youtube.com/results?search_query=crunch+oblique+technique"},
+  "Hollow body hold":{sets:"3 × 20s",rest:"30s",tip:"Position militaire fondamentale",desc:"Allongé sur le dos, tu soulèves légèrement les épaules et les jambes du sol. Corps en légère 'banane' creuse.",cues:["Le bas du dos reste collé au sol","Jambes plus hautes si c'est trop dur","Serre les abdos au maximum"],link:"https://www.youtube.com/results?search_query=hollow+body+hold+technique"},
+  "Jumping jacks (ou pas en place haut)":{sets:"2 × 40s",rest:"20s",tip:"Échauffement cardio",desc:"Sauts les pieds joints, bras le long du corps, puis sauts pieds écartés bras en croix.",cues:["Rythme soutenu mais contrôlé","Atterrissage souple","Option sans saut: montées de genoux rapides"],link:"https://www.youtube.com/results?search_query=jumping+jacks+technique"},
+  "Pompes + squat enchaîné":{sets:"3 × 8",rest:"45s",tip:"Sans pause entre les deux",desc:"Fais une pompe, puis reviens debout et enchaîne directement un squat. Répète en rythme.",cues:["Pompe complète avant de te relever","Squat complet avant de revenir au sol","Fluidité dans les transitions"],link:"https://www.youtube.com/results?search_query=push+up+squat+combo"},
+  "Fentes jump (ou alternées)":{sets:"3 × 8/j",rest:"45s",tip:"Choisir selon niveau",desc:"Depuis la fente basse, saute pour changer de jambe en l'air. Option douce : simple alternance sans saut.",cues:["Atterrissage direct en fente basse","Genoux à 90° à chaque fente","Option sans saut : lente et contrôlée"],link:"https://www.youtube.com/results?search_query=fentes+sautees+technique"},
+  "Mountain climbers rapides":{sets:"3 × 20s",rest:"30s",tip:"Gainage cardio",desc:"Comme les mountain climbers lents mais à vitesse maximale.",cues:["Hanches basses, dos plat","Rythme rapide, respiration contrôlée","Les bras restent tendus et solides"],link:"https://www.youtube.com/results?search_query=mountain+climbers+rapides"},
+  "Rowing au sol (serviette + porte)":{sets:"3 × 10",rest:"45s",tip:"Genoux fléchis, tirage vers nombril",desc:"Tiens une serviette passée dans une porte. Penche-toi en arrière bras tendus, puis tire ton corps vers la porte.",cues:["Corps incliné comme une planche","Tire les coudes vers les hanches","Plus tu es horizontal, plus c'est difficile"],link:"https://www.youtube.com/results?search_query=rowing+porte+serviette+dos+maison"},
+  "Superman hold long":{sets:"3 × 8 (hold 5s)",rest:"30s",tip:"Progressif vs J4",desc:"Superman tenu 5 secondes en position haute. Progression directe depuis J4 (3 secondes).",cues:["Compte bien 5 secondes en haut","Respire pendant le hold","Contracte fessiers et ischio en même temps que le dos"],link:"https://www.youtube.com/results?search_query=superman+hold+dos+technique"},
+  "Oiseau (bird dog)":{sets:"3 × 8/côté",rest:"30s",tip:"Gainage lombaire + équilibre",desc:"À quatre pattes, tends simultanément le bras droit et la jambe gauche. Tiens 2 sec puis change.",cues:["La hanche ne monte pas pendant l'extension","Corps parallèle au sol en extension","Regard vers le sol, nuque neutre"],link:"https://www.youtube.com/results?search_query=bird+dog+exercice+technique"},
+  "Étirements lat + ouverture épaules":{sets:"3 × 30s",rest:"—",tip:"Mobilité fondamentale",desc:"Bras au-dessus de la tête, attrape le coude droit avec la main gauche et incline vers la gauche.",cues:["Incline depuis le buste","Tiens 30 secondes de chaque côté","Respire dans l'étirement"],link:"https://www.youtube.com/results?search_query=etirement+grand+dorsal+lateral"},
+  "Pompes — AMRAP 60s":{sets:"1 × max",rest:"90s",tip:"Note le chiffre, tu le rebattras J25",desc:"AMRAP = As Many Reps As Possible. Maximum de pompes parfaites en 60 secondes. Note le résultat.",cues:["Dès que la forme se dégrade, arrête","Note le chiffre pour comparer à J25","Mieux vaut 10 bonnes reps que 20 mauvaises"],link:"https://www.youtube.com/results?search_query=pompes+test+amrap"},
+  "Pompes genoux (récup)":{sets:"2 × 10",rest:"30s",tip:"Active sans fatiguer",desc:"Pompes avec les genoux au sol. Idéal pour récupérer ou s'échauffer.",cues:["Hanches dans l'axe","Poitrine descend jusqu'à effleurer le sol","Bon pour les jours de fatigue"],link:"https://www.youtube.com/results?search_query=pompes+genoux+technique"},
+  "Pompes larges lentes (4-1-2)":{sets:"3 × 6",rest:"60s",tip:"Tempo : 4s descente, 1s bas, 2s montée",desc:"Pompes larges avec tempo contrôlé : 4 sec pour descendre, 1 sec de pause en bas, 2 sec pour monter.",cues:["Compte à voix haute pour tenir le tempo","La pause en bas est isométrique, reste tendu","Moins de reps que d'habitude, c'est normal"],link:"https://www.youtube.com/results?search_query=pompes+tempo+lent+technique"},
+  "Squat saut (ou squat)":{sets:"4 × 8",rest:"60s",tip:"Descente lente, montée explosive",desc:"Descends lentement en squat (3 sec) puis remonte en explosant vers le haut. Option sans saut si besoin.",cues:["Descente contrôlée, montée explosive","Atterrissage souple sur la pointe puis le talon","Genoux ne s'effondrent pas vers l'intérieur"],link:"https://www.youtube.com/results?search_query=squat+saut+explosif+technique"},
+  "Fentes marchées":{sets:"3 × 10",rest:"45s",tip:"Amplitude maximale",desc:"Avance en faisant des fentes continues : un pas de fente, puis l'autre jambe en avant, etc.",cues:["Grand pas à chaque fente","Torse droit, regard devant","Genou arrière effleure presque le sol"],link:"https://www.youtube.com/results?search_query=fentes+marchées+technique"},
+  "Glute bridge feet elevated":{sets:"3 × 12",rest:"45s",tip:"Pieds sur chaise, ischio sous charge",desc:"Comme le glute bridge mais les pieds posés sur une chaise. Engage davantage les ischio-jambiers.",cues:["Pieds à plat sur la chaise, talons actifs","Monte les hanches jusqu'à l'alignement genou-hanche-épaule","Tiens 2 secondes en haut"],link:"https://www.youtube.com/results?search_query=glute+bridge+pieds+sureleves"},
+  "Squat isostatique (wall sit)":{sets:"3 × 30s",rest:"30s",tip:"Force endurance quadriceps",desc:"Dos contre un mur, descends jusqu'à ce que les cuisses soient parallèles au sol. Tiens la position.",cues:["Genoux à 90°, pas plus bas","Dos plat contre le mur","Respire calmement, serre les abdos"],link:"https://www.youtube.com/results?search_query=wall+sit+technique+isometrique"},
+  "Planche sur les poings":{sets:"3 × 35s",rest:"30s",tip:"Progression vs J3",desc:"Planche classique mais sur les poings fermés au lieu des avant-bras.",cues:["Poings à plat, poignets dans l'axe","Même règles que la planche avant","Plus dure qu'elle n'y paraît"],link:"https://www.youtube.com/results?search_query=planche+poings+technique"},
+  "Planche latérale + dip":{sets:"3 × 8/côté",rest:"30s",tip:"Obliques sous charge dynamique",desc:"En planche latérale, laisse la hanche descendre vers le sol puis remonte. Dynamique et intense pour les obliques.",cues:["Descente contrôlée, pas de chute","Monte le plus haut possible","Corps reste en ligne de côté"],link:"https://www.youtube.com/results?search_query=planche+laterale+dip+technique"},
+  "V-up modifié":{sets:"3 × 10",rest:"30s",tip:"Genoux si besoin, montée contrôlée",desc:"Allongé, bras derrière la tête. Monte simultanément les bras et les jambes tendues pour former un V.",cues:["Expire en montant","Reviens lentement, ne laisse pas tomber","Option : genoux fléchis"],link:"https://www.youtube.com/results?search_query=v-up+exercice+abdominaux+technique"},
+  "Hollow body rock":{sets:"3 × 15s",rest:"30s",tip:"Balancement lent, tension constante",desc:"Position hollow body (banane), puis tu te balances doucement d'avant en arrière en gardant la forme.",cues:["La forme hollow body ne change pas pendant le rock","Balancement depuis les épaules et les pieds","Reste contracté en permanence"],link:"https://www.youtube.com/results?search_query=hollow+body+rock+technique"},
+  "Pompes archer (1 bras décalé)":{sets:"3 × 5/côté",rest:"60s",tip:"Progression vers pompe 1 bras",desc:"Pompe avec une main rapprochée et l'autre écartée sur le côté. Le bras écarté assiste peu.",cues:["Bras écarté : juste posé, pas de poussée active","Progressif : commence avec grosse assistance","Alterne à chaque rep"],link:"https://www.youtube.com/results?search_query=pompes+archer+technique"},
+  "Pistol squat assisté (chaise)":{sets:"3 × 6/j",rest:"60s",tip:"1 jambe, appui léger au mur",desc:"Squat sur une jambe, l'autre tendue devant. Utilise une chaise ou le mur pour t'assister.",cues:["Talon reste au sol pendant toute la descente","L'appui doit être le plus léger possible","Garde la jambe tendue devant toi horizontale"],link:"https://www.youtube.com/results?search_query=pistol+squat+assiste+debutant"},
+  "Pompes + gainage T":{sets:"3 × 5/côté",rest:"60s",tip:"Rotation complète en haut",desc:"Fais une pompe puis ouvre le corps en T complet, bras vers le plafond. Reviens en pompe, recommence de l'autre côté.",cues:["Corps forme un T parfait en rotation","Tiens 1 seconde en haut avant de revenir","Ne te précipite pas"],link:"https://www.youtube.com/results?search_query=push+up+rotation+T+technique"},
+  "Burpee complet":{sets:"3 × 6",rest:"60s",tip:"Full range si les épaules suivent",desc:"La version complète : pompe en bas, saut avec bras levés en haut. Ne saute pas les étapes.",cues:["Pompe complète avant de sauter","Saut avec bras tendus au-dessus de la tête","Ne précipite pas si les épaules fatiguent"],link:"https://www.youtube.com/results?search_query=burpee+complet+technique"},
+  "Rowing porte (corps incliné)":{sets:"4 × 10",rest:"45s",tip:"Plus incliné = plus difficile",desc:"Tiens une porte ouverte des deux mains. Incline le corps en arrière bras tendus puis tire ta poitrine vers la porte.",cues:["Pieds près du bas de la porte = plus facile","Corps rigide comme une planche pendant le tirage","Tire les coudes vers les hanches pas le menton"],link:"https://www.youtube.com/results?search_query=rowing+porte+inverted+row+maison"},
+  "Élévations W + Y couché":{sets:"3 × 12",rest:"30s",tip:"Rear delts et rotateurs épaule",desc:"Allongé face au sol, bras en W (coudes à 90°) puis en Y (bras tendus en diagonale). Alterne les deux formes.",cues:["Serre les omoplates à chaque position","Amplitude petite, contraction forte","Essentiel pour la santé de l'épaule"],link:"https://www.youtube.com/results?search_query=exercice+W+Y+prone+epaule"},
+  "Cat-cow actif":{sets:"2 × 10",rest:"20s",tip:"Mobilité colonne",desc:"À quatre pattes : arrondis le dos vers le plafond (cat), puis creuse-le vers le sol (cow). Lentement et en respirant.",cues:["Commence par le bas du dos, puis le milieu, puis le haut","Bouge vertèbre par vertèbre"],link:"https://www.youtube.com/results?search_query=cat+cow+technique+yoga"},
+  "Thread the needle":{sets:"3 × 8/côté",rest:"20s",tip:"Rotation thoracique profonde",desc:"À quatre pattes, passe un bras sous ton corps en le faisant glisser sur le sol pour ouvrir la cage thoracique en rotation.",cues:["L'épaule du bras qui glisse touche le sol","L'autre bras reste tendu pour le support","Retourne lentement, ne te précipite pas"],link:"https://www.youtube.com/results?search_query=thread+the+needle+exercise"},
+  "Pompes explosives (clap ou accélérées)":{sets:"3 × 5",rest:"60s",tip:"Puissance maximale",desc:"Pompe avec poussée maximale pour décoller les mains du sol. Option : accélère juste la phase montante.",cues:["Seulement si les épaules le permettent","Atterrissage souple et direct en pompe basse","Qualité > quantité"],link:"https://www.youtube.com/results?search_query=pompes+explosives+clap+technique"},
+  "Pompes déclinées (pieds hauts)":{sets:"3 × 8",rest:"60s",tip:"Deltoïdes antérieurs, angle doux",desc:"Pompes avec les pieds surélevés sur une chaise. Cible la partie haute du pectoral et les épaules.",cues:["Plus les pieds sont hauts, plus les épaules travaillent","Garde l'angle doux, pas trop haut","Corps en ligne droite"],link:"https://www.youtube.com/results?search_query=pompes+declinées+pieds+hauts"},
+  "Dips profonds sur chaise":{sets:"3 × 10",rest:"45s",tip:"Amplitude maximale si épaules OK",desc:"Dips sur chaise avec descente maximale. Écoute tes épaules : si gêne, réduis l'amplitude.",cues:["Ne descends que jusqu'à ce que les bras forment 90°","Coudes pointent derrière","Remonte en poussant fort sur les paumes"],link:"https://www.youtube.com/results?search_query=dips+chaise+amplitude+technique"},
+  "Pompes lentes (5-0-5)":{sets:"2 × 5",rest:"60s",tip:"Tension musculaire maximale",desc:"5 secondes pour descendre, pas de pause en bas, 5 secondes pour monter. Tension constante.",cues:["Compte à voix haute","Ne verrouille pas les coudes en haut","La tension musculaire est maximale tout au long"],link:"https://www.youtube.com/results?search_query=pompes+tempo+5+0+5"},
+  "100 squats (pause si besoin)":{sets:"1 × 100",rest:"—",tip:"Défi volume — note le temps",desc:"Fais 100 squats, avec des pauses si nécessaire. Note le temps total.",cues:["Forme parfaite à chaque rep","Fais des séries de 20 avec 30s de pause si besoin","Note le temps et le nombre de pauses"],link:"https://www.youtube.com/results?search_query=100+squats+defi+technique"},
+  "Planche AMRAP":{sets:"1 × max",rest:"90s",tip:"Note le temps — tu le rebattra J28",desc:"Tiens la planche le plus longtemps possible sans que la forme se dégrade. Note le temps.",cues:["Dès que les hanches montent ou descendent : stop","Respire régulièrement","Ne triche pas : tu dois battre ce score à J28"],link:"https://www.youtube.com/results?search_query=planche+test+amrap+max"},
+  "Dragon flag modifié":{sets:"3 × 6",rest:"60s",tip:"Jambes fléchies, descente lente",desc:"Allongé sur un banc ou le sol, tiens quelque chose derrière la tête. Monte les jambes fléchies vers le plafond puis descends lentement.",cues:["Descente lente en 4 secondes","Le dos reste plaqué, ce sont les abdos qui retiennent","Jambes fléchies pour commencer"],link:"https://www.youtube.com/results?search_query=dragon+flag+modifie+technique"},
+  "L-sit sur chaise (2 sec)":{sets:"3 × 5",rest:"30s",tip:"Force abdominale et psoas",desc:"Assis sur le bord de deux chaises stables, soulève les fesses et tends les jambes devant toi. Tiens 2 secondes.",cues:["Bras tendus, pousse dans les chaises","Jambes les plus droites possible","Genoux fléchis si pas encore assez de force"],link:"https://www.youtube.com/results?search_query=L-sit+chaise+technique"},
+  "Mountain climbers — 45s sprint":{sets:"3 × 45s",rest:"30s",tip:"Cardio-core intense",desc:"Mountain climbers à vitesse maximale pendant 45 secondes.",cues:["Dos plat en permanence","Respire fort, ne bloque pas","Ralentis si la forme se dégrade"],link:"https://www.youtube.com/results?search_query=mountain+climbers+sprint+45+secondes"},
+  "20 pompes":{sets:"↓",rest:"—",tip:"",desc:"Pompes classiques, forme parfaite.",cues:["Coudes à 45°","Corps rigide"],link:"https://www.youtube.com/results?search_query=pompes+classiques+technique"},
+  "20 squats":{sets:"↓",rest:"—",tip:"",desc:"Squats au poids du corps, descente complète.",cues:["Genou dans l'axe","Dos droit"],link:"https://www.youtube.com/results?search_query=squat+technique"},
+  "20 mountain climbers":{sets:"↓",rest:"—",tip:"",desc:"Mountain climbers, rythme modéré.",cues:["Dos plat","Genou vers poitrine"],link:"https://www.youtube.com/results?search_query=mountain+climbers+technique"},
+  "20 fentes":{sets:"AMRAP 12 min",rest:"—",tip:"Enchaîne les 4 exercices sans pause — note tes rounds",desc:"Fentes alternées, amplitude maximale. Enchaîne les 4 exercices sans pause (circuit). Note le nombre de rounds complets en 12 min.",cues:["Fentes larges","Torse droit"],link:"https://www.youtube.com/results?search_query=fentes+circuit+training"},
+  "Rowing au sol 50 reps total":{sets:"Séries de 10",rest:"45s",tip:"Toutes les séries doivent être propres",desc:"Rowing à la porte ou serviette. 50 reps totales en plusieurs séries de 10.",cues:["Corps rigide","Tire jusqu'à la hanche"],link:"https://www.youtube.com/results?search_query=rowing+porte+serviette+dos+maison"},
+  "Superman 10 × 5s":{sets:"1 × 10",rest:"20s",tip:"Tenir 5 secondes chaque rep",desc:"Superman avec hold de 5 secondes. 10 répétitions. La version la plus intense du cycle.",cues:["5 secondes bien comptées","Fessiers et ischio contractés","Nuque dans l'axe"],link:"https://www.youtube.com/results?search_query=superman+hold+dos+technique"},
+  "Planche prone (ventre) reach":{sets:"3 × 8/côté",rest:"30s",tip:"Stabilisation de la chaîne postérieure",desc:"Allongé sur le ventre, tends un bras devant toi et la jambe opposée en même temps. Tiens 2 secondes.",cues:["Regard vers le sol","Contracte les fessiers pendant l'extension","La hanche qui monte : erreur à éviter"],link:"https://www.youtube.com/results?search_query=prone+reach+extension+dos"},
+  "Mobilité épaules complète":{sets:"10 min",rest:"—",tip:"Cercles, croisements, étirements",desc:"Routine de mobilité pour les épaules : cercles d'épaules, cross-body stretch, bras derrière la tête, ouverture thoracique.",cues:["Lent et progressif","Ne force jamais dans la douleur","C'est de l'entretien, pas du sport"],link:"https://www.youtube.com/results?search_query=routine+mobilite+epaules+etirements"},
+  "Marche ou vélo 15 min":{sets:"1 × continu",rest:"—",tip:"Récupération active",desc:"Cardio léger pour favoriser la circulation et la récupération.",cues:["Fréquence cardiaque basse","Conversation possible"],link:""},
+  "Foam rolling ou massage balle (dos, fessiers)":{sets:"5 min",rest:"—",tip:"Libère les tensions",desc:"Roule lentement sur un foam roller ou une balle de tennis sur les zones tendues.",cues:["Trouve les zones douloureuses et reste dessus 30s","Respire dans la zone","Ne roule pas sur les articulations"],link:"https://www.youtube.com/results?search_query=foam+rolling+dos+fessiers+technique"},
+  "Yoga — chien tête en bas":{sets:"5 × 30s",rest:"—",tip:"Épaules douces, étirement complet",desc:"Mains et pieds au sol, hanches vers le plafond pour former un triangle inversé.",cues:["Talons cherchent le sol sans forcer","Bras tendus, épaules loin des oreilles","Respire profondément"],link:"https://www.youtube.com/results?search_query=chien+tête+en+bas+downward+dog+technique"},
+  "Respiration 4-7-8":{sets:"5 cycles",rest:"—",tip:"Récupération du système nerveux",desc:"Inspire par le nez 4 secondes, retiens 7 secondes, expire par la bouche 8 secondes.",cues:["Inspire : 4 sec","Retiens : 7 sec","Expire lentement : 8 sec"],link:"https://www.youtube.com/results?search_query=respiration+4+7+8+technique"},
+  "Marche ou vélo 20 min":{sets:"1 × continu",rest:"—",tip:"Dernier repos avant la dernière semaine",desc:"20 minutes de cardio léger. C'est le repos actif le plus long du cycle.",cues:["Profite pour réfléchir à tes progrès","Rythme confort total","Extérieur recommandé"],link:""},
+  "Bilan : que ressens-tu ?":{sets:"—",rest:"—",tip:"Force, souplesse, énergie — note tes progrès",desc:"Prends 5 minutes pour noter par écrit ce que tu ressens : force, énergie, posture, sommeil. Compare à J1.",cues:["Es-tu plus fort ?","Récupères-tu mieux ?","As-tu plus d'énergie au quotidien ?"],link:""},
+  "Étirements complets":{sets:"10 min",rest:"—",tip:"Insiste sur épaules et hanches",desc:"Routine d'étirements full body : épaules, pectoraux, ischio, quadriceps, hanches, dos.",cues:["30 secondes minimum par étirement","Ne force jamais dans la douleur","Respire dans chaque position"],link:"https://www.youtube.com/results?search_query=routine+etirements+full+body+10+minutes"},
+  "Sommeil + protéines ce soir":{sets:"—",rest:"—",tip:"Récupération = 50% des résultats",desc:"Dors 7-8h et mange suffisamment de protéines ce soir (œufs, fromage blanc, légumineuses, viande).",cues:["1,8g de protéines / kg de poids de corps / jour","Couche-toi à heure fixe","Évite les écrans 1h avant de dormir"],link:""},
+  "Pompes AMRAP — TEST":{sets:"1 × max",rest:"90s",tip:"Compare à J12 — tu as progressé !",desc:"Test final de pompes. Même protocole qu'à J12 : maximum de pompes parfaites en 60 secondes.",cues:["Même conditions qu'à J12","Forme parfaite jusqu'au bout","Note et compare !"],link:"https://www.youtube.com/results?search_query=pompes+test+amrap"},
+  "Pistol squat assisté — test":{sets:"Max par jambe",rest:"60s",tip:"Progrès depuis J8 ?",desc:"Fais le maximum de pistol squats assistés par jambe. Compare à J8.",cues:["Même assistance qu'au début ou moins","Compte les reps de chaque côté","Note la différence de force droite/gauche"],link:"https://www.youtube.com/results?search_query=pistol+squat+assiste+debutant"},
+  "Squat saut 30s AMRAP":{sets:"3 × 30s",rest:"30s",tip:"Explosivité en fin de cycle",desc:"Maximum de squats sautés en 30 secondes. 3 séries. Mesure ton explosivité après 28 jours.",cues:["Descente complète à chaque rep","Atterrissage souple","Note le meilleur round"],link:"https://www.youtube.com/results?search_query=squat+saut+amrap+test"},
+  "Wall sit — test":{sets:"1 × max",rest:"—",tip:"Note le temps",desc:"Tiens le wall sit le plus longtemps possible. Note le temps.",cues:["Genoux à 90° exactement","Dos plat contre le mur","Respire régulièrement"],link:"https://www.youtube.com/results?search_query=wall+sit+test+endurance"},
+  "Planche AMRAP — TEST":{sets:"1 × max",rest:"90s",tip:"Compare à J21 — mesure ton progrès",desc:"Test final de planche. Compare à J21. 4 semaines de progression dans les abdos et le gainage.",cues:["Même conditions qu'à J21","Forme parfaite","Note et sois fier !"],link:"https://www.youtube.com/results?search_query=planche+test+amrap+max"},
+  "Hollow body hold (final)":{sets:"3 × 30s",rest:"30s",tip:"Progression vs J9",desc:"Hollow body hold en fin de cycle. 30 secondes vs 20 au J9.",cues:["Le bas du dos collé","Jambes plus basses si tu peux","Tension maximale"],link:"https://www.youtube.com/results?search_query=hollow+body+hold+technique"},
+  "L-sit sur chaise (final)":{sets:"3 × 8s",rest:"30s",tip:"Progression vs J21",desc:"L-sit avec hold de 8 secondes vs 2 secondes à J21.",cues:["Bras bien tendus","Jambes horizontales si possible","8 secondes bien comptées"],link:"https://www.youtube.com/results?search_query=L-sit+chaise+technique"},
+  "100 mountain climbers":{sets:"En moins de temps qu'à J3",rest:"—",tip:"Défi chrono final",desc:"100 mountain climbers chrono. Compare le temps à J3.",cues:["Dos plat en permanence","Note le temps","Célèbre le progrès"],link:"https://www.youtube.com/results?search_query=mountain+climbers+technique"},
+  "Circuit militaire complet (comme J22)":{sets:"AMRAP 15 min",rest:"—",tip:"Compare tes rounds à J22 !",desc:"Le même circuit qu'au J22 mais 15 minutes au lieu de 12. Tu dois faire plus de rounds.",cues:["Note tes rounds","Compare à J22","Apprécie la progression"],link:""},
+  "Planche finale — tenu max":{sets:"1 × max",rest:"—",tip:"Ta meilleure performance du cycle",desc:"La toute dernière planche. Bats ton record.",cues:["Tout ton focus dans cette planche","Forme parfaite jusqu'au bout","Tu es plus fort qu'il y a 28 jours"],link:"https://www.youtube.com/results?search_query=planche+test+amrap+max"},
+  "Étirements complets 10 min":{sets:"—",rest:"—",tip:"Tu l'as mérité",desc:"Routine d'étirements complète pour terminer le cycle dans les meilleures conditions.",cues:["Prends ton temps","Chaque muscle travaillé mérite ses 30 secondes","Respire, tu l'as fait !"],link:""},
+  "Note tes 3 progrès principaux":{sets:"—",rest:"—",tip:"Force, posture, énergie — tout compte",desc:"Écris 3 choses qui se sont améliorées depuis J1 : force, posture, énergie, sommeil, confiance... Tout compte.",cues:["Pas que les pompes ! La posture aussi","L'énergie au quotidien est un vrai progrès","Garde ce bilan pour ton prochain cycle"],link:""},
+  "Marche 15 min":{sets:"1 × continu",rest:"—",tip:"Plein air recommandé",desc:"15 minutes de marche en extérieur si possible.",cues:["Rythme confort","Respiration nasale","Profite de l'air frais"],link:""},
+  "Étirements full body":{sets:"10 min",rest:"—",tip:"Hanches, dos, épaules, ischio",desc:"Routine complète d'étirements. Insiste sur les zones travaillées cette semaine.",cues:["30s par muscle","Respire dans l'étirement","Ne force jamais"],link:"https://www.youtube.com/results?search_query=etirements+full+body+10+minutes"},
+  "Auto-massage cervicaux":{sets:"5 min",rest:"—",tip:"Libère les tensions du cou",desc:"Avec les mains, masse doucement la nuque et les trapèzes. Rotations lentes de la tête.",cues:["Pressions légères mais profondes","Rotation de la tête dans les deux sens","Jamais de manipulation brusque"],link:"https://www.youtube.com/results?search_query=auto+massage+cervicaux+nuque"},
+  "Respiration lente":{sets:"5 min",rest:"—",tip:"Cohérence cardiaque",desc:"Inspire 5 secondes, expire 5 secondes. Répète pendant 5 minutes.",cues:["5 sec inspire, 5 sec expire","Yeux fermés si possible","Laisse le rythme cardiaque ralentir"],link:"https://www.youtube.com/results?search_query=coherence+cardiaque+respiration"},
+  "Marche ou vélo":{sets:"1 × continu",rest:"—",tip:"Récupération active",desc:"Cardio léger pour maintenir la circulation et accélérer la récupération musculaire.",cues:["Intensité très basse","Parle normalement pendant l'effort","15-20 minutes"],link:""}
+};
+
+// ===== PROGRAMME 28 JOURS =====
+const DAYS=[
+  {type:'push',title:'Activation Push',exos:['Pompes classiques','Pompes larges','Dips sur chaise (mains)','Gainage avant']},
+  {type:'legs',title:'Jambes & fessiers',exos:['Squats lents','Fentes avant alternées','Glute bridge','Calf raises']},
+  {type:'core',title:'Core militaire',exos:['Planche avant','Crunchs vélo','Mountain climbers lents','Superman (extension dorsale)']},
+  {type:'pull',title:'Dos & posture',exos:['Superman hold','Élévations de bras en W couché','Planche latérale','Cat-cow + rotations thoraciques']},
+  {type:'full',title:'Full body express',exos:['Burpees modifiés (sans saut)','Squats jump (ou squats)','Pompes + rotation','Gainage + reach']},
+  {type:'rest',title:'Repos actif',exos:['Marche 10–15 min','Étirements épaules & poitrail','Étirements ischio-jambiers','Respiration diaphragmatique']},
+  {type:'push',title:'Push — volume +',exos:['Pompes classiques','Pompes fermées (triceps)','Pompes inclinées (pieds sur chaise)','Dips sur chaise (mains)']},
+  {type:'legs',title:'Jambes — unilatéral',exos:['Fentes bulgares (pied arrière sur chaise)','Single leg glute bridge','Step-ups sur chaise basse','Squats sumo lents']},
+  {type:'core',title:'Core — gainage dynamique',exos:['Dead bug','Planche + tap épaule','Crunchs obliques','Hollow body hold']},
+  {type:'full',title:'Circuit cardio-force',exos:['Jumping jacks (ou pas en place haut)','Pompes + squat enchaîné','Fentes jump (ou alternées)','Mountain climbers rapides']},
+  {type:'pull',title:'Dos — renforcement',exos:['Rowing au sol (serviette + porte)','Superman hold long','Oiseau (bird dog)','Étirements lat + ouverture épaules']},
+  {type:'push',title:'Push — endurance',exos:['Pompes — AMRAP 60s','Pompes genoux (récup)','Pompes larges lentes (4-1-2)','Gainage avant']},
+  {type:'rest',title:'Repos actif',exos:['Marche ou vélo 15 min','Foam rolling ou massage balle (dos, fessiers)','Yoga — chien tête en bas','Respiration 4-7-8']},
+  {type:'legs',title:'Jambes — explosivité',exos:['Squat saut (ou squat)','Fentes marchées','Glute bridge feet elevated','Squat isostatique (wall sit)']},
+  {type:'core',title:'Core — instabilité',exos:['Planche sur les poings','Planche latérale + dip','V-up modifié','Hollow body rock']},
+  {type:'full',title:'Full body — force',exos:['Pompes archer (1 bras décalé)','Pistol squat assisté (chaise)','Pompes + gainage T','Burpee complet']},
+  {type:'pull',title:'Dos & mobilité',exos:['Rowing porte (corps incliné)','Élévations W + Y couché','Cat-cow actif','Thread the needle']},
+  {type:'rest',title:'Repos actif',exos:['Marche 15 min','Étirements full body','Auto-massage cervicaux','Respiration lente']},
+  {type:'push',title:'Push — intensité max',exos:['Pompes explosives (clap ou accélérées)','Pompes déclinées (pieds hauts)','Dips profonds sur chaise','Pompes lentes (5-0-5)']},
+  {type:'legs',title:'Jambes — volume',exos:['100 squats (pause si besoin)','Glute bridge','Étirements ischio-jambiers','Calf raises']},
+  {type:'core',title:'Core — max effort',exos:['Planche AMRAP','Dragon flag modifié','L-sit sur chaise (2 sec)','Mountain climbers — 45s sprint']},
+  {type:'full',title:'Circuit militaire',exos:['20 pompes','20 squats','20 mountain climbers','20 fentes']},
+  {type:'pull',title:'Dos — force endurance',exos:['Rowing au sol 50 reps total','Superman 10 × 5s','Planche prone (ventre) reach','Mobilité épaules complète']},
+  {type:'rest',title:'Repos actif',exos:['Marche ou vélo 20 min','Bilan : que ressens-tu ?','Étirements complets','Sommeil + protéines ce soir']},
+  {type:'push',title:'Push — test final',exos:['Pompes AMRAP — TEST','Pompes larges lentes (4-1-2)','Dips profonds sur chaise','Pompes fermées (triceps)']},
+  {type:'legs',title:'Jambes — test final',exos:['Pistol squat assisté — test','Fentes bulgares (pied arrière sur chaise)','Squat saut 30s AMRAP','Wall sit — test']},
+  {type:'core',title:'Core — test final',exos:['Planche AMRAP — TEST','Hollow body hold (final)','L-sit sur chaise (final)','100 mountain climbers']},
+  {type:'full',title:'Séance finale — bilan',exos:['Circuit militaire complet (comme J22)','Planche finale — tenu max','Étirements complets 10 min','Note tes 3 progrès principaux']},
+];
+
+const TYPE_TAG={push:'tag-push',legs:'tag-legs',core:'tag-core',pull:'tag-pull',full:'tag-full',rest:'tag-rest'};
+const TYPE_LABEL={push:'Push',legs:'Jambes',core:'Core',pull:'Pull / Dos',full:'Full body',rest:'Repos actif'};
+
+// ===== STATE =====
+let done={};
+try{ done=JSON.parse(localStorage.getItem('cal28v2_done')||'{}'); }catch(e){}
+let selected=null;
+let openEx=null;
+
+// ===== RENDER CALENDAR =====
+function renderCal(){
+  const cal=document.getElementById('cal');
+  cal.innerHTML='';
+  DAYS.forEach((d,i)=>{
+    const cell=document.createElement('div');
+    cell.className='day-cell'+(done[i]?' done':'')+(selected===i?' selected':'');
+    cell.setAttribute('role','button');
+    cell.setAttribute('aria-label',`Jour ${i+1} — ${d.title}`);
+    cell.innerHTML=
+      `<div class="day-num">J${i+1} ${done[i]?'<i class="ti ti-check check-icon"></i>':''}</div>`+
+      `<div class="day-tag ${TYPE_TAG[d.type]}">${TYPE_LABEL[d.type]}</div>`+
+      `<div class="day-title">${d.title}</div>`;
+    cell.onclick=()=>{ selected=i; openEx=null; renderCal(); renderDetail(); scrollToDetail(); };
+    cal.appendChild(cell);
+  });
+  const cnt=Object.keys(done).length;
+  document.getElementById('prog-fill').style.width=Math.round(cnt/28*100)+'%';
+}
+
+// ===== SCROLL TO DETAIL (mobile UX) =====
+function scrollToDetail(){
+  const isMobile=window.innerWidth<=600;
+  if(!isMobile) return;
+  setTimeout(()=>{
+    const el=document.getElementById('detail-zone');
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 80);
+}
+
+// ===== RENDER DETAIL =====
+function renderDetail(){
+  const z=document.getElementById('detail-zone');
+  if(selected===null){
+    z.innerHTML='<p class="no-sel"><i class="ti ti-hand-click"></i> Sélectionne un jour pour voir la séance</p>';
+    return;
+  }
+  const d=DAYS[selected];
+  const isDone=!!done[selected];
+  let html=`<div class="detail-card">
+    <div class="detail-header">
+      <span class="day-tag ${TYPE_TAG[d.type]}">${TYPE_LABEL[d.type]}</span>
+      <span class="detail-title">Jour ${selected+1} — ${d.title}</span>
+      <span class="detail-meta"><i class="ti ti-clock"></i> ~15 min</span>
+    </div>
+    <div class="th-row">
+      <span>Exercice <span style="font-size:9px;font-weight:400;text-transform:none">(tape pour détails)</span></span>
+      <span style="text-align:center">Séries</span>
+      <span style="text-align:center">Repos</span>
+    </div>`;
+
+  d.exos.forEach((name,idx)=>{
+    const e=EX[name]||{sets:'—',rest:'—',tip:'',desc:'',cues:[],link:''};
+    const isOpen=(openEx===idx);
+    html+=`<div class="ex-block">
+      <div class="ex-header" onclick="toggleEx(${idx})" role="button" aria-expanded="${isOpen}">
+        <div class="ex-name">
+          <i class="ti ti-chevron-down ex-chevron${isOpen?' open':''}"></i>${name}
+        </div>
+        <div class="ex-sets">${e.sets}</div>
+        <div class="ex-rest">${e.rest}</div>
+      </div>`;
+    if(isOpen){
+      html+=`<div class="ex-detail open">
+        <div class="ex-desc">
+          ${e.tip?`<div style="font-size:11px;color:var(--text-tertiary);margin-bottom:8px;font-style:italic">💡 ${e.tip}</div>`:''}
+          <div class="ex-desc-title">Comment faire</div>
+          <p>${e.desc}</p>
+          ${e.cues.length?`<ul>${e.cues.map(c=>`<li>${c}</li>`).join('')}</ul>`:''}
+          ${e.link?`<a class="ex-link" href="${e.link}" target="_blank" rel="noopener"><i class="ti ti-brand-youtube"></i> Voir une vidéo démo</a>`:''}
+        </div>
+      </div>`;
+    }
+    html+='</div>';
+  });
+
+  html+=`</div>
+  <div class="done-btn">
+    <button class="btn${isDone?' done-active':''}" onclick="toggleDone(${selected})">
+      ${isDone
+        ?'<i class="ti ti-x"></i> Marquer non fait'
+        :'<i class="ti ti-check"></i> Séance terminée !'
+      }
+    </button>
+  </div>`;
+  z.innerHTML=html;
+}
+
+// ===== TOGGLE EXERCISE DETAIL =====
+function toggleEx(idx){
+  openEx=(openEx===idx)?null:idx;
+  renderDetail();
+}
+
+// ===== TOGGLE DONE =====
+function toggleDone(i){
+  if(done[i]) delete done[i]; else done[i]=1;
+  try{ localStorage.setItem('cal28v2_done',JSON.stringify(done)); }catch(e){}
+  renderCal();
+  renderDetail();
+}
+
+// ===== INIT =====
+renderCal();
+renderDetail();
+</script>
+</body>
+</html>
