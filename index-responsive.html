@@ -8,7 +8,7 @@
   <style>
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; }
+    html { font-size: 12px; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
       background: #f7f6f1;
@@ -84,14 +84,14 @@
       flex-wrap: wrap;
     }
     .top-bar h1 {
-      font-size: clamp(15px, 3vw, 18px);
+      font-size: clamp(16px, 4.5vw, 24px);
       font-weight: 600;
       color: var(--text-primary);
       line-height: 1.3;
     }
     .top-bar h1 span {
       display: block;
-      font-size: clamp(11px, 2.5vw, 13px);
+      font-size: clamp(12px, 2.5vw, 15px);
       font-weight: 400;
       color: var(--text-tertiary);
       margin-top: 2px;
@@ -103,7 +103,7 @@
       align-items: center;
     }
     .chip {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-secondary);
       background: var(--bg-secondary);
       border: 0.5px solid var(--border);
@@ -141,7 +141,7 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-secondary);
     }
     .dot {
@@ -159,7 +159,7 @@
       margin-bottom: 4px;
     }
     .week-label {
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-tertiary);
       text-align: center;
@@ -188,7 +188,7 @@
     .day-cell.done { opacity: 0.5; }
     .day-cell.selected { border: 1.5px solid var(--blue); background: var(--bg-primary); }
     .day-num {
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-secondary);
       display: flex;
@@ -196,7 +196,7 @@
       gap: 3px;
     }
     .day-tag {
-      font-size: 9px;
+      font-size: 12px;
       font-weight: 600;
       padding: 2px 5px;
       border-radius: 99px;
@@ -204,7 +204,7 @@
       line-height: 1.4;
     }
     .day-title {
-      font-size: 9px;
+      font-size: 12px;
       color: var(--text-primary);
       line-height: 1.3;
     }
@@ -264,7 +264,7 @@
       background: var(--bg-secondary);
     }
     .th-row span {
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-secondary);
       text-transform: uppercase;
@@ -286,7 +286,7 @@
     .ex-header:hover { background: var(--bg-secondary); }
     .ex-header:active { background: var(--border); }
     .ex-name {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-primary);
       display: flex;
       align-items: center;
@@ -294,7 +294,7 @@
       line-height: 1.3;
     }
     .ex-chevron {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-tertiary);
       transition: transform 0.2s;
       flex-shrink: 0;
@@ -306,7 +306,7 @@
       text-align: center;
       font-weight: 500;
     }
-    .ex-rest { font-size: 11px; color: var(--text-secondary); text-align: center; }
+    .ex-rest { font-size: 12px; color: var(--text-secondary); text-align: center; }
 
     /* ===== EXERCISE DETAIL ===== */
     .ex-detail { display: none; padding: 0 16px 14px; }
@@ -349,7 +349,7 @@
       align-items: center;
       gap: 6px;
       padding: 9px 18px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       border-radius: var(--radius-md);
       border: 0.5px solid var(--border-md);
@@ -375,12 +375,12 @@
     @media (max-width: 768px) {
       .container { padding: 0.75rem; }
       .week-labels { gap: 3px; }
-      .week-label { font-size: 9px; }
+      .week-label { font-size: 12px; }
       .grid-cal { gap: 3px; }
       .day-cell { min-height: 60px; padding: 5px 4px; gap: 2px; }
-      .day-num { font-size: 9px; }
-      .day-tag { font-size: 8px; padding: 1px 4px; }
-      .day-title { font-size: 8px; }
+      .day-num { font-size: 12px; }
+      .day-tag { font-size: 12px; padding: 1px 4px; }
+      .day-title { font-size: 12px; }
     }
 
     /* ===== RESPONSIVE: MOBILE (≤480px) ===== */
@@ -399,10 +399,10 @@
       /* Garder 7 colonnes mais très compactes */
       .grid-cal { grid-template-columns: repeat(7, minmax(0,1fr)); gap: 2px; }
       .week-labels { grid-template-columns: repeat(7, minmax(0,1fr)); gap: 2px; }
-      .week-label { font-size: 8px; }
+      .week-label { font-size: 12px; }
       .day-cell { min-height: 52px; padding: 4px 3px; border-radius: 6px; }
-      .day-num { font-size: 8px; }
-      .day-tag { font-size: 7px; padding: 1px 3px; border-radius: 4px; }
+      .day-num { font-size: 12px; }
+      .day-tag { font-size: 12px; padding: 1px 3px; border-radius: 4px; }
       .day-title { display: none; } /* masqué sur très petit écran, le tag suffit */
 
       /* Chips: masquer le texte long */
@@ -410,14 +410,14 @@
 
       /* Detail */
       .th-row { grid-template-columns: 1fr 72px 56px; padding: 6px 12px; }
-      .th-row span { font-size: 9px; }
+      .th-row span { font-size: 12px; }
       .ex-header { grid-template-columns: 1fr 72px 56px; padding: 10px 12px; }
       .ex-name { font-size: 12px; }
-      .ex-sets { font-size: 11px; }
-      .ex-rest { font-size: 10px; }
+      .ex-sets { font-size: 12px; }
+      .ex-rest { font-size: 12px; }
       .ex-detail { padding: 0 12px 12px; }
       .detail-header { padding: 10px 12px; }
-      .detail-title { font-size: 13px; }
+      .detail-title { font-size: 12px; }
 
       /* Bouton done: pleine largeur */
       .done-btn { flex-direction: column; align-items: stretch; }
@@ -427,8 +427,8 @@
     /* ===== RESPONSIVE: TRÈS PETIT (≤360px) ===== */
     @media (max-width: 360px) {
       .day-cell { min-height: 44px; }
-      .day-tag { font-size: 6px; padding: 1px 2px; }
-      .day-num { font-size: 7px; }
+      .day-tag { font-size: 10px; padding: 1px 2px; }
+      .day-num { font-size: 10px; }
     }
 
     /* ===== UTILITAIRES ===== */
@@ -451,13 +451,13 @@
 
     <div class="top-bar">
       <div>
-        <h1>Programme 28 jours
-          <span>Calisthenics pur — sans matériel</span>
+        <h1>Programme 28 jours v1
+          <span>Calisthenics pur</span>
         </h1>
       </div>
       <div class="chips">
-        <span class="chip"><i class="ti ti-clock"></i> ~15 min/j</span>
-        <span class="chip"><i class="ti ti-home"></i> Maison</span>
+        <span class="chip"><i class="ti ti-clock"></i> 15 min/j</span>
+        <span class="chip"><i class="ti ti-home"></i> Sans matériel</span>
         <span class="chip chip-hint"><i class="ti ti-hand-click"></i> Clique un jour</span>
       </div>
     </div>
@@ -684,7 +684,7 @@ function renderDetail(){
       <span class="detail-meta"><i class="ti ti-clock"></i> ~15 min</span>
     </div>
     <div class="th-row">
-      <span>Exercice <span style="font-size:9px;font-weight:400;text-transform:none">(tape pour détails)</span></span>
+      <span>Exercice <span style="font-size:12px;font-weight:400;text-transform:none">(tape pour détails)</span></span>
       <span style="text-align:center">Séries</span>
       <span style="text-align:center">Repos</span>
     </div>`;
@@ -703,7 +703,7 @@ function renderDetail(){
     if(isOpen){
       html+=`<div class="ex-detail open">
         <div class="ex-desc">
-          ${e.tip?`<div style="font-size:11px;color:var(--text-tertiary);margin-bottom:8px;font-style:italic">💡 ${e.tip}</div>`:''}
+          ${e.tip?`<div style="font-size:12px;color:var(--text-tertiary);margin-bottom:8px;font-style:italic">💡 ${e.tip}</div>`:''}
           <div class="ex-desc-title">Comment faire</div>
           <p>${e.desc}</p>
           ${e.cues.length?`<ul>${e.cues.map(c=>`<li>${c}</li>`).join('')}</ul>`:''}
